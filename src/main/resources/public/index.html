@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>familyGames</title>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script>
+        $.getJSON("games", function(data) {
+            $("#content").append(JSON.stringify(data));
+        });
+    </script>
+
+</head>
+<body>
+    <div id="content">
+        <header><h1>Game Chooser</h1></header>
+        <form id="gameParameters">
+            <lable for="gameType">Type of Game</lable>
+            <select id="gameType">
+                <option value="social">Social</option>
+                <option value="lightStrat">Light Strategy</option>
+                <option value="heavyStrat">Heavy Strategy</option>
+            </select>
+            <lable for="gameLength">Maximum Game Length</lable>
+            <input type="number">
+            <lable for="numPlayers">Number of Players</lable>
+            <input type="number">
+            <lable for="gamelocation">Location of Game</lable>
+            <select id="gamelocation">
+                <option value="chavey">Chavey's</option>
+                <option value="balcom">Balcom's</option>
+                <option value="wittigChavey">Wittig-Chavey's</option>
+                <option value="becca">Becca's</option>
+            </select>
+            <input type="submit">Find a Game</input>
+        </form>
+
+    </div>
+
+</body>
+</html>
