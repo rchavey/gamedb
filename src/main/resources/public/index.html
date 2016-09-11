@@ -4,55 +4,51 @@
     <meta charset="UTF-8">
     <title>familyGames</title>
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $.getJSON("games", function(data) {
-                $("#content").append(JSON.stringify(data));
-            });
-
-            $("#gameType").change(function(e) {
-                console.log("working");
-                var selectedGameType = $("#gameType").val();
-                getFilteredGames(selectedGameType);
-            });
-
-
-            function getFilteredGames(selectedGameType) {
-                $.getJSON("filtered-games", {gameType: selectedGameType}, function(data) {
-                    $("#content").append(JSON.stringify(data));
-                });
-            }         
-
-        });
-
-
-    </script>
 
 </head>
 <body>
     <div id="content">
         <header><h1>Game Chooser</h1></header>
-        <form id="gameParameters">
-            <lable for="gameType">Type of Game</lable>
-            <select id="gameType">
+        <form id="filters">
+            <label for="type">Type of Game</label>
+            <select id="type">
                 <option value="1">Social</option>
                 <option value="2">Light Strategy</option>
                 <option value="3">Heavy Strategy</option>
             </select>
-            <lable for="gameLength">Maximum Game Length</lable>
-            <input type="number">
-            <lable for="numPlayers">Number of Players</lable>
-            <input type="number">
-            <lable for="gamelocation">Location of Game</lable>
-            <select id="gamelocation">
-                <option value="chavey">Chavey's</option>
-                <option value="balcom">Balcom's</option>
-                <option value="wittigChavey">Wittig-Chavey's</option>
-                <option value="becca">Becca's</option>
+            <label for="length">Maximum Game Length</label>
+            <input id ="length" type="number">
+            <label for="numPlayers">Number of Players</label>
+            <input id ="numPlayers" type="number">
+            <label for="location">Location of Game</label>
+            <select id="location">
+                <option value="1">Chavey's</option>
+                <option value="2">Balcom's</option>
+                <option value="3">Wittig-Chavey's</option>
+                <option value="4">Becca's</option>
             </select>
         </form>
 
+        <div id="games"></div>
+
+        <form id="newGame">
+            <input id ="newName" type="text" placeholder="Game Name">
+            <select id="newType">
+                <option value="1">Social</option>
+                <option value="2">Light Strategy</option>
+                <option value="3">Heavy Strategy</option>
+            </select>
+            <input id="newMinPlayers" type="number" placeholder="Min. Players">
+            <input id="newMaxPlayers" type="number" placeholder="Max. Players">
+            <input id="newLength" type="number" placeholder="Maximum Length">
+            <input type="checkbox" name="newLocation" value="1">Chavey's</input>
+            <input type="checkbox" name="newLocation" value="2">Balcom's</input>
+            <input type="checkbox" name="newLocation" value="3">Wittig-Chavey's</input>
+            <input type="checkbox" name="newLocation" value="4">Becca's</input>
+            <button id="saveGame">Save Game</button>
+        </form>
+
     </div>
-    <script src="games.js"></script>
+    <script src="js/games.js"></script>
 </body>
 </html>

@@ -22,8 +22,9 @@ public class GamesController {
         return gamesRepository.getAllGames();
     }
 
+    //add all parameters
     @RequestMapping("filtered-games")
-    public List<Map<String, Object>> getGames(@RequestParam int gameType) {
-        return gamesRepository.getFilteredGames(gameType);
+    public List<Map<String, Object>> getGames(@RequestParam int numPlayers, @RequestParam int type, @RequestParam int location, @RequestParam int length) {
+        return gamesRepository.getFilteredGames(numPlayers, type, location, length);
     }
 }

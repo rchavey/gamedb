@@ -19,8 +19,11 @@ public class GamesRepository {
         return jdbcOperations.queryForList("Select * from game");
     }
 
-    public List<Map<String, Object>> getFilteredGames(int gameType) {
-        return jdbcOperations.queryForList("Select * from game where typeID = ?", gameType);
+    //add parameters
+    public List<Map<String, Object>> getFilteredGames(int numPlayers, int type, int location, int length) {
+        return jdbcOperations.queryForList("Select * from game " +
+                "where ? between minPlayers and maxPlayers and typeID = ? and locationId = ? and lengthMinutes >= ?",
+                numPlayers, type, location, length);
     }
 }
 
