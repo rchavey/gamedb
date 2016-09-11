@@ -18,6 +18,10 @@ public class GamesRepository {
     public List<Map<String, Object>> getAllGames() {
         return jdbcOperations.queryForList("Select * from game");
     }
+
+    public List<Map<String, Object>> getFilteredGames(int gameType) {
+        return jdbcOperations.queryForList("Select * from game where typeID = ?", gameType);
+    }
 }
 
 

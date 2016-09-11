@@ -5,9 +5,27 @@
     <title>familyGames</title>
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script>
-        $.getJSON("games", function(data) {
-            $("#content").append(JSON.stringify(data));
+        $(document).ready(function() {
+            $.getJSON("games", function(data) {
+                $("#content").append(JSON.stringify(data));
+            });
+
+            $("#gameType").change(function(e) {
+                console.log("working");
+                var selectedGameType = $("#gameType").val();
+                getFilteredGames(selectedGameType);
+            });
+
+
+            function getFilteredGames(selectedGameType) {
+                $.getJSON("filtered-games", {gameType: selectedGameType}, function(data) {
+                    $("#content").append(JSON.stringify(data));
+                });
+            }         
+
         });
+
+
     </script>
 
 </head>
@@ -17,9 +35,9 @@
         <form id="gameParameters">
             <lable for="gameType">Type of Game</lable>
             <select id="gameType">
-                <option value="social">Social</option>
-                <option value="lightStrat">Light Strategy</option>
-                <option value="heavyStrat">Heavy Strategy</option>
+                <option value="1">Social</option>
+                <option value="2">Light Strategy</option>
+                <option value="3">Heavy Strategy</option>
             </select>
             <lable for="gameLength">Maximum Game Length</lable>
             <input type="number">
@@ -32,10 +50,9 @@
                 <option value="wittigChavey">Wittig-Chavey's</option>
                 <option value="becca">Becca's</option>
             </select>
-            <input type="submit">Find a Game</input>
         </form>
 
     </div>
-
+    <script src="games.js"></script>
 </body>
 </html>
