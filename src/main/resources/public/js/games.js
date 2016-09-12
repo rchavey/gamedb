@@ -16,23 +16,29 @@ $(document).ready(function() {
         getFilteredGames(numPlayers, type, location, length);
     });
 
-    $("saveGame").click(function e) {
-        var name = $("#newName").val()
-        var type = $("#newType").val()
-        var minPlayers = $("#newMinPlayers").val()
-        var maxPlayers = $("#newMaxPlayers").val()
-        var length = $("#newLength").val()
+    $("#saveGame").click(function (e)  {
+        var name = $("#newName").val();
+        var type = $("#newType").val();
+        var minPlayers = $("#newMinPlayers").val();
+        var maxPlayers = $("#newMaxPlayers").val();
+        var length = $("#newLength").val();
         //be able to take in multiple locations
-        var location = $("#newLocation").val()
+        var location = $("input[name=newLocation]:checked").val();
 
-        addGame(name, type, minPlayers,maxPlayers, length, location)
-    }
+        console.log("working");
+        addGame(name, type, minPlayers,maxPlayers, length, location);
+    });
 
 
     function getFilteredGames(numPlayers, type, location, length) {
         $.getJSON("filtered-games",{numPlayers: numPlayers, type: type, location: location, length: length}, function(data) {
             $("#games").html(JSON.stringify(data));
         });
+    }
+
+    function addGame(name, type, minPlayers, maxPlayers, length, location) {
+        $.getJSON("addGame", {name: name, type: type, minPlayers:minPlayers, maxPlayers: maxPlayers, length:length, location:location});
+
     }
 
 });

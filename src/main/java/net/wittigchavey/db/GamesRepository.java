@@ -25,6 +25,12 @@ public class GamesRepository {
                 "where ? between minPlayers and maxPlayers and typeID = ? and locationId = ? and lengthMinutes >= ?",
                 numPlayers, type, location, length);
     }
+
+    public void addGame(String name, int type, int minPlayers, int maxPlayers, int length, int location) {
+        int numRows = jdbcOperations.update("insert into game(name, typeID, minPlayers, maxPlayers, lengthMinutes, locationID) values (?,?,?,?,?,?)",
+                name, type, minPlayers, maxPlayers, length, location);
+        System.out.println(numRows);
+    }
 }
 
 
