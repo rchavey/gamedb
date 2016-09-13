@@ -3,7 +3,7 @@
  */
 
 $(document).ready(function() {
-    $.getJSON("games", function(data) {
+    $.getJSON("/games", function(data) {
         $("#games").append(JSON.stringify(data));
     });
 
@@ -31,13 +31,13 @@ $(document).ready(function() {
 
 
     function getFilteredGames(numPlayers, type, location, length) {
-        $.getJSON("filtered-games",{numPlayers: numPlayers, type: type, location: location, length: length}, function(data) {
+        $.getJSON("/filtered-games",{numPlayers: numPlayers, type: type, location: location, length: length}, function(data) {
             $("#games").html(JSON.stringify(data));
         });
     }
 
     function addGame(name, type, minPlayers, maxPlayers, length, location) {
-        $.getJSON("addGame", {name: name, type: type, minPlayers:minPlayers, maxPlayers: maxPlayers, length:length, location:location});
+        $.getJSON("/addGame", {name: name, type: type, minPlayers:minPlayers, maxPlayers: maxPlayers, length:length, location:location});
 
     }
 
