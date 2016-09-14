@@ -41,9 +41,11 @@ public class GamesRepository {
     //add parameters
     public List<GameDto> getFilteredGames(int numPlayers, int type, int location, int length) {
         List<GameDto> games = jdbcOperations.query("Select * from game " +
-                "where ? between minPlayers and maxPlayers and typeID = ? and locationId = ? and lengthMinutes >= ?",
+                " join game_location gl on game.id = gl.gameID" +
+                " where ? between minPlayers and maxPlayers and typeID = ? and locationID = ? and lengthMinutes <= ?",
                 BeanPropertyRowMapper.newInstance(GameDto.class),
                 numPlayers, type, location, length);
+        games.forEach(game -> game.setLocationIDs(getLocationIds(game.getId())));
         return games;
     }
 
