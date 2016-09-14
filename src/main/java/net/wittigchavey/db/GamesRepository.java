@@ -2,8 +2,13 @@ package net.wittigchavey.db;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.List;
 import java.util.Map;
 
@@ -12,8 +17,16 @@ import java.util.Map;
  */
 @Repository
 public class GamesRepository {
+
+    private final JdbcOperations jdbcOperations;
+    private final SimpleJdbcInsert gameInsert;
+
     @Autowired
-    private JdbcOperations jdbcOperations;
+    public GamesRepository(JdbcTemplate jdbcTemplate, DataSource dataSource) {
+        this.jdbcOperations = jdbcTemplate;
+        this.gameInsert = new SimpleJdbcInsert(jdbcTemplate).withTableName("game").usingGeneratedKeyColumns("id");
+    }
+
 
     public List<Map<String, Object>> getAllGames() {
         return jdbcOperations.queryForList("Select * from game");
@@ -26,10 +39,19 @@ public class GamesRepository {
                 numPlayers, type, location, length);
     }
 
-    public void addGame(String name, int type, int minPlayers, int maxPlayers, int length, int location) {
-        int numRows = jdbcOperations.update("insert into game(name, typeID, minPlayers, maxPlayers, lengthMinutes, locationID) values (?,?,?,?,?,?)",
-                name, type, minPlayers, maxPlayers, length, location);
-        System.out.println(numRows);
+    public void addGame(NewGameDto newGameDto) {
+
+        SqlParameterSource params = new MapSqlParameterSource()
+                .addValue("name", newGameDto.getName())
+                .addValue("typeID", newGameDto.getType())
+                .addValue("minPlayers", newGameDto.getMinPlayers())
+                .addValue("maxPlayers", newGameDto.getMaxPlayers())
+                .addValue("lengthMinutes", newGameDto.getLength());
+
+        Number gameId = gameInsert.executeAndReturnKey(params);
+        for (Integer location : newGameDto.getLocations()) {
+            jdbcOperations.update("insert into game_location (gameID, locationID) values (?, ?)", gameId, location);
+        }
     }
 }
 

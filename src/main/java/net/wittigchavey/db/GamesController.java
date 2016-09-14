@@ -1,9 +1,7 @@
 package net.wittigchavey.db;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -28,8 +26,8 @@ public class GamesController {
         return gamesRepository.getFilteredGames(numPlayers, type, location, length);
     }
 
-    @RequestMapping("addGame")
-    public void addGame(@RequestParam String name, @RequestParam int type, @RequestParam int minPlayers, @RequestParam int maxPlayers, @RequestParam int length, @RequestParam int location) {
-        gamesRepository.addGame(name, type, minPlayers, maxPlayers, length, location);
+    @RequestMapping(value = "addGame", method = RequestMethod.POST)
+    public void addGame(@RequestBody NewGameDto newGameDto) {
+        gamesRepository.addGame(newGameDto);
     }
 }

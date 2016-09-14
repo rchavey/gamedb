@@ -22,7 +22,12 @@ $(document).ready(function() {
             minPlayers:$("#newMinPlayers").val(),
             maxPlayers:$("#newMaxPlayers").val(),
             length:$("#newLength").val(),
-            location:$("input[name=newLocation]:checked").val()};
+            locations: []
+        };
+
+        $("input[name=newLocation]:checked").each(function () {
+            parameters.locations.push($(this).val());
+        });
 
         addGame(parameters);
     });
@@ -35,8 +40,16 @@ $(document).ready(function() {
     }
 
     function addGame(parameters) {
-        $.getJSON("addGame", parameters);
-
+        $.ajax({
+            type: 'post',
+            url: 'addGame',
+            data: JSON.stringify(parameters),
+            success: function (data) {
+                console.log('saved successfully');
+            },
+            contentType: 'application/json',
+            dataType: 'json'
+        });
     }
 
 });
