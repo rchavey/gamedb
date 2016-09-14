@@ -17,15 +17,14 @@ $(document).ready(function() {
     });
 
     $("#saveGame").click(function (e)  {
-        var name = $("#newName").val();
-        var type = $("#newType").val();
-        var minPlayers = $("#newMinPlayers").val();
-        var maxPlayers = $("#newMaxPlayers").val();
-        var length = $("#newLength").val();
-        //be able to take in multiple locations
-        var location = $("input[name=newLocation]:checked").val();
+        var parameters = {name: $("#newName").val(),
+            type:$("#newType").val(),
+            minPlayers:$("#newMinPlayers").val(),
+            maxPlayers:$("#newMaxPlayers").val(),
+            length:$("#newLength").val(),
+            location:$("input[name=newLocation]:checked").val()};
 
-        addGame(name, type, minPlayers,maxPlayers, length, location);
+        addGame(parameters);
     });
 
 
@@ -35,8 +34,8 @@ $(document).ready(function() {
         });
     }
 
-    function addGame(name, type, minPlayers, maxPlayers, length, location) {
-        $.getJSON("addGame", {name: name, type: type, minPlayers:minPlayers, maxPlayers: maxPlayers, length:length, location:location});
+    function addGame(parameters) {
+        $.getJSON("addGame", parameters);
 
     }
 
