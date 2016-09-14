@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Rachel on 7/25/2016.
@@ -16,13 +15,13 @@ public class GamesController {
     private GamesRepository gamesRepository;
 
     @RequestMapping("games")
-    public List<Map<String, Object>> getGames() {
+    public List<GameDto> getGames() {
         return gamesRepository.getAllGames();
     }
 
     //deal with when we don't have all parameters
     @RequestMapping("filtered-games")
-    public List<Map<String, Object>> getGames(@RequestParam int numPlayers, @RequestParam int type, @RequestParam int location, @RequestParam int length) {
+    public List<GameDto> getGames(@RequestParam int numPlayers, @RequestParam int type, @RequestParam int location, @RequestParam int length) {
         return gamesRepository.getFilteredGames(numPlayers, type, location, length);
     }
 

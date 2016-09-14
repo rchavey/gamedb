@@ -1,6 +1,7 @@
 package net.wittigchavey.db;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Rachel on 7/26/2016.
@@ -27,16 +27,24 @@ public class GamesRepository {
         this.gameInsert = new SimpleJdbcInsert(jdbcTemplate).withTableName("game").usingGeneratedKeyColumns("id");
     }
 
+    public List<GameDto> getAllGames() {
+        List<GameDto> games = jdbcOperations.query("Select * from game", BeanPropertyRowMapper.newInstance(GameDto.class));
+        games.forEach(game -> game.setLocationIDs(getLocationIds(game.getId())));
+        return games;
+    }
 
-    public List<Map<String, Object>> getAllGames() {
-        return jdbcOperations.queryForList("Select * from game");
+    private List<Integer> getLocationIds(Integer gameId) {
+
+        return jdbcOperations.queryForList("select locationID from game_location where gameID = ?", Integer.class, gameId);
     }
 
     //add parameters
-    public List<Map<String, Object>> getFilteredGames(int numPlayers, int type, int location, int length) {
-        return jdbcOperations.queryForList("Select * from game " +
+    public List<GameDto> getFilteredGames(int numPlayers, int type, int location, int length) {
+        List<GameDto> games = jdbcOperations.query("Select * from game " +
                 "where ? between minPlayers and maxPlayers and typeID = ? and locationId = ? and lengthMinutes >= ?",
+                BeanPropertyRowMapper.newInstance(GameDto.class),
                 numPlayers, type, location, length);
+        return games;
     }
 
     public void addGame(NewGameDto newGameDto) {
