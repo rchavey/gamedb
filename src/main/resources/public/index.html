@@ -17,9 +17,9 @@
                 <option value="3">Heavy Strategy</option>
             </select>
             <label for="length">Maximum Game Length</label>
-            <input id ="length" type="number">
+            <input id ="length" type="number" value="60">
             <label for="numPlayers">Number of Players</label>
-            <input id ="numPlayers" type="number">
+            <input id ="numPlayers" type="number" value="3">
             <label for="location">Location of Game</label>
             <select id="location">
                 <option value="1">Chavey's</option>
@@ -29,7 +29,10 @@
             </select>
         </form>
 
-        <div id="games"></div>
+        <table id="games">
+            <thead><tr><th>Name</th><th>Type</th><th>Min. Players</th><th>Max. Players</th><th>Max. Length</th><th>Loactions</th></tr></thead>
+            <tbody></tbody>
+        </table>
 
         <form id="newGame">
             <input id ="newName" type="text" placeholder="Game Name">

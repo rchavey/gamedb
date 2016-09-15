@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Rachel on 7/26/2016.
@@ -62,6 +63,14 @@ public class GamesRepository {
         for (Integer location : newGameDto.getLocations()) {
             jdbcOperations.update("insert into game_location (gameID, locationID) values (?, ?)", gameId, location);
         }
+    }
+
+    public List<Map<String, Object>> getAllTypes() {
+        return jdbcOperations.queryForList("Select * from type");
+    }
+
+    public List<Map<String, Object>> getAllLocations() {
+        return jdbcOperations.queryForList("Select * from location");
     }
 }
 
