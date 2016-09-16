@@ -1,5 +1,6 @@
 package net.wittigchavey.db;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ public class GameDto {
     private Integer maxPlayers;
     private Integer lengthMinutes;
     private List<Integer> locationIDs;
+    private LocalDate  lastPlayed;
 
     public Integer getId() {
         return id;
@@ -69,5 +71,13 @@ public class GameDto {
 
     public void setLocationIDs(List<Integer> locationIDs) {
         this.locationIDs = locationIDs;
+    }
+
+    public LocalDate getLastPlayed() {
+        return lastPlayed;
+    }
+
+    public void setLastPlayed(LocalDate lastPlayed) {
+        this.lastPlayed = lastPlayed;
     }
 }
