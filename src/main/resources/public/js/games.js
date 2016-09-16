@@ -25,6 +25,22 @@ $(document).ready(function () {
         getFilteredGames(numPlayers, type, location, length);
     });
 
+    $("body").on("click", "a.update-game", function(e) {
+
+        var gameId = $(this).data('gameId');
+        var lastPlayed = $(this).parents("tr").find('input[type=date]').val()
+        $.ajax({
+            type: 'put',
+            url: 'asdf/' + gameId + '/last-played',
+            data: JSON.stringify({lastPlayed: lastPlayed}),
+            success: function (data) {
+                console.log('saved successfully');
+            },
+            contentType: 'application/json',
+            dataType: 'json'
+        });
+    });
+
     $("#saveGame").click(function (e) {
         var parameters = {
             name: $("#newName").val(),
@@ -90,7 +106,7 @@ $(document).ready(function () {
                 data[i].lengthMinutes + "</td> <td>" +
                 locationsString + "</td><td>" +
                 lastPlayedInput + "</td>td>" +
-                "<td><a href='#'>Save</a></td></tr>");
+                "<td><a href='#' class='update-game' data-game-id='" + data[i].id + "'>Save</a></td></tr>");
         }
 
     }
