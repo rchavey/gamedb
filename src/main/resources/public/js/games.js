@@ -96,7 +96,8 @@ $(document).ready(function () {
                 }
             }
 
-            var lastPlayedInput = "<input type='date' value='" + data[i].lastPlayed + "'/>";
+            // var lastPlayedInput = "<input type='date' value='" + data[i].lastPlayed + "'/>";
+            var lastPlayedInput = data[i].lastPlayed || '';
 
             $("#games tbody").append("<tr> <td>" +
                 data[i].name + "</td> <td>" +
@@ -105,8 +106,8 @@ $(document).ready(function () {
                 data[i].maxPlayers + "</td> <td>" +
                 data[i].lengthMinutes + "</td> <td>" +
                 locationsString + "</td><td>" +
-                lastPlayedInput + "</td>td>" +
-                "<td><a href='#' class='update-game' data-game-id='" + data[i].id + "'>Save</a></td></tr>");
+                lastPlayedInput + "</td></tr>");
+                // "<td><a href='#' class='update-game' data-game-id='" + data[i].id + "'>Save</a></td></tr>");
         }
 
     }
