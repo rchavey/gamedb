@@ -60,10 +60,12 @@ $(document).ready(function () {
             url: 'addGame',
             data: JSON.stringify(parameters),
             success: function (data) {
+
                 console.log('saved successfully');
             },
             contentType: 'application/json',
             dataType: 'json'
+
         });
     }
 
@@ -71,6 +73,15 @@ $(document).ready(function () {
         $("#games tbody").empty();
         for (var i = 0; i < data.length; i++) {
             var locationsString = "";
+            var lastPlayed = "";
+
+            if (!data[i].lastPlayed) {
+               lastPlayed = "not yet played";
+            } else {
+                lastPlayed = data[i].lastPlayed;
+            }
+
+
             for (var j = 0; j < data[i].locationIDs.length; j++) {
                 locationsString += locations[data[i].locationIDs[j]]
                 if (j != data[i].locationIDs.length - 1) {
@@ -84,7 +95,8 @@ $(document).ready(function () {
                 data[i].minPlayers + "</td> <td>" +
                 data[i].maxPlayers + "</td> <td>" +
                 data[i].lengthMinutes + "</td> <td>" +
-                locationsString + "</td>" + "</tr>");
+                locationsString + "</td><td>" +
+                lastPlayed + "</td></tr>");
         }
 
     }

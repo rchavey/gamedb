@@ -29,7 +29,7 @@ public class GamesRepository {
     }
 
     public List<GameDto> getAllGames() {
-        List<GameDto> games = jdbcOperations.query("Select * from game", BeanPropertyRowMapper.newInstance(GameDto.class));
+        List<GameDto> games = jdbcOperations.query("Select * from game Order By name", BeanPropertyRowMapper.newInstance(GameDto.class));
         games.forEach(game -> game.setLocationIDs(getLocationIds(game.getId())));
         return games;
     }
@@ -43,7 +43,8 @@ public class GamesRepository {
     public List<GameDto> getFilteredGames(int numPlayers, int type, int location, int length) {
         List<GameDto> games = jdbcOperations.query("Select * from game " +
                 " join game_location gl on game.id = gl.gameID" +
-                " where ? between minPlayers and maxPlayers and typeID = ? and locationID = ? and lengthMinutes <= ?",
+                " where ? between minPlayers and maxPlayers and typeID = ? and locationID = ? and lengthMinutes <= ?" +
+                        " Order By lastPlayed",
                 BeanPropertyRowMapper.newInstance(GameDto.class),
                 numPlayers, type, location, length);
         games.forEach(game -> game.setLocationIDs(getLocationIds(game.getId())));
