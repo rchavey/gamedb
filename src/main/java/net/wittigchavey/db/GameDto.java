@@ -1,6 +1,8 @@
 package net.wittigchavey.db;
 
-import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,7 +17,9 @@ public class GameDto {
     private Integer maxPlayers;
     private Integer lengthMinutes;
     private List<Integer> locationIDs;
-    private LocalDate  lastPlayed;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date lastPlayed;
 
     public Integer getId() {
         return id;
@@ -73,11 +77,11 @@ public class GameDto {
         this.locationIDs = locationIDs;
     }
 
-    public LocalDate getLastPlayed() {
+    public Date getLastPlayed() {
         return lastPlayed;
     }
 
-    public void setLastPlayed(LocalDate lastPlayed) {
+    public void setLastPlayed(Date lastPlayed) {
         this.lastPlayed = lastPlayed;
     }
 }

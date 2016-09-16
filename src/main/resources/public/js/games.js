@@ -73,21 +73,14 @@ $(document).ready(function () {
         $("#games tbody").empty();
         for (var i = 0; i < data.length; i++) {
             var locationsString = "";
-            var lastPlayed = "";
-
-            if (!data[i].lastPlayed) {
-               lastPlayed = "not yet played";
-            } else {
-                lastPlayed = data[i].lastPlayed;
-            }
-
-
             for (var j = 0; j < data[i].locationIDs.length; j++) {
                 locationsString += locations[data[i].locationIDs[j]]
                 if (j != data[i].locationIDs.length - 1) {
                     locationsString += ", "
                 }
             }
+
+            var lastPlayedInput = "<input type='date' value='" + data[i].lastPlayed + "'/>";
 
             $("#games tbody").append("<tr> <td>" +
                 data[i].name + "</td> <td>" +
@@ -96,7 +89,8 @@ $(document).ready(function () {
                 data[i].maxPlayers + "</td> <td>" +
                 data[i].lengthMinutes + "</td> <td>" +
                 locationsString + "</td><td>" +
-                lastPlayed + "</td></tr>");
+                lastPlayedInput + "</td>td>" +
+                "<td><a href='#'>Save</a></td></tr>");
         }
 
     }
