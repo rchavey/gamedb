@@ -35,9 +35,7 @@ $(document).ready(function () {
             data: JSON.stringify({lastPlayed: lastPlayed}),
             success: function (data) {
                 console.log('saved successfully');
-                $("#save-success").fadeTo(2000, 500).slideUp(500, function () {
-                    $("#save-success").slideUp(500);
-                });
+                showSuccessNotification();
             },
             contentType: 'application/json'
         });
@@ -77,13 +75,14 @@ $(document).ready(function () {
             type: 'post',
             url: 'addGame',
             data: JSON.stringify(parameters),
-            success: function (data) {
-
+            success: function () {
                 console.log('saved successfully');
+                showSuccessNotification();
+                $.getJSON("games", function (data) {
+                    renderTable(data);
+                });
             },
-            contentType: 'application/json',
-            dataType: 'json'
-
+            contentType: 'application/json'
         });
     }
 
@@ -112,6 +111,12 @@ $(document).ready(function () {
         }
         // $('#games').dataTable();
 
+    }
+
+    function showSuccessNotification() {
+        $("#save-success").fadeTo(2000, 500).slideUp(500, function () {
+            $("#save-success").slideUp(500);
+        });
     }
 
 });
