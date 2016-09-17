@@ -1,17 +1,17 @@
 package net.wittigchavey.db;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class LastPlayedDateUpdateDto {
 
-    private Date lastPlayed;
+    private LocalDate lastPlayed;
 
-    public Date getLastPlayed() {
+    public LocalDate getLastPlayed() {
 
         return lastPlayed;
     }
 
-    public void setLastPlayed(Date lastPlayed) {
+    public void setLastPlayed(LocalDate lastPlayed) {
 
         this.lastPlayed = lastPlayed;
     }

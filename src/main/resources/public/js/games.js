@@ -31,7 +31,7 @@ $(document).ready(function () {
         var lastPlayed = $(this).parents("tr").find('input[type=date]').val()
         $.ajax({
             type: 'put',
-            url: 'asdf/' + gameId + '/last-played',
+            url: 'games/' + gameId + '/last-played',
             data: JSON.stringify({lastPlayed: lastPlayed}),
             success: function (data) {
                 console.log('saved successfully');
@@ -96,8 +96,7 @@ $(document).ready(function () {
                 }
             }
 
-            // var lastPlayedInput = "<input type='date' value='" + data[i].lastPlayed + "'/>";
-            var lastPlayedInput = data[i].lastPlayed || '';
+            var lastPlayedInput = "<input type='date' value='" + data[i].lastPlayed + "'/>";
 
             $("#games tbody").append("<tr> <td>" +
                 data[i].name + "</td> <td>" +
@@ -106,9 +105,10 @@ $(document).ready(function () {
                 data[i].maxPlayers + "</td> <td>" +
                 data[i].lengthMinutes + "</td> <td>" +
                 locationsString + "</td><td>" +
-                lastPlayedInput + "</td></tr>");
-                // "<td><a href='#' class='update-game' data-game-id='" + data[i].id + "'>Save</a></td></tr>");
+                lastPlayedInput + "</td>" +
+                "<td><a href='#' class='update-game' data-game-id='" + data[i].id + "'>Save</a></td></tr>");
         }
+        // $('#games').dataTable();
 
     }
 

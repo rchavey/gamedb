@@ -40,7 +40,7 @@ public class GamesController {
         gamesRepository.addGame(newGameDto);
     }
 
-    @RequestMapping(value = "asdf/{gameId}/last-played", method = RequestMethod.PUT)
+    @RequestMapping(value = "games/{gameId}/last-played", method = RequestMethod.PUT)
     public void setLastPlayedDate(@PathVariable Integer gameId,
                                   @RequestBody LastPlayedDateUpdateDto dto) {
 

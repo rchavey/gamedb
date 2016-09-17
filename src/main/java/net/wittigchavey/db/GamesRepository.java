@@ -10,7 +10,8 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -75,9 +76,9 @@ public class GamesRepository {
         return jdbcOperations.queryForList("Select * from location");
     }
 
-    public void updateLastPlayedDate(Integer gameId, Date lastPlayed) {
+    public void updateLastPlayedDate(Integer gameId, LocalDate lastPlayed) {
 
-        jdbcOperations.update("update game set lastPlayed = ? where id = ?", gameId, lastPlayed);
+        jdbcOperations.update("update game set lastPlayed = ? where id = ?", Date.valueOf(lastPlayed), gameId);
     }
 }
 
