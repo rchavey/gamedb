@@ -25,7 +25,7 @@ $(document).ready(function () {
         getFilteredGames(numPlayers, type, location, length);
     });
 
-    $("body").on("click", "a.update-game", function(e) {
+    $("body").on("click", "a.update-game", function (e) {
 
         var gameId = $(this).data('gameId');
         var lastPlayed = $(this).parents("tr").find('input[type=date]').val()
@@ -35,9 +35,11 @@ $(document).ready(function () {
             data: JSON.stringify({lastPlayed: lastPlayed}),
             success: function (data) {
                 console.log('saved successfully');
+                $("#save-success").fadeTo(2000, 500).slideUp(500, function () {
+                    $("#save-success").slideUp(500);
+                });
             },
-            contentType: 'application/json',
-            dataType: 'json'
+            contentType: 'application/json'
         });
     });
 
